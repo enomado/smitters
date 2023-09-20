@@ -9,8 +9,8 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-kurbo = "*"
-egui = "*"
-eframe = "*"
-env_logger = "*"
-itertools-num = "*"
+kurbo = "^0.9.5"
+egui = "^0.22.0"
+eframe = "^0.22.0"
+env_logger = "^0.10.0"
+itertools-num = "^0.1.3"
