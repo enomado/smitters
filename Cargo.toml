@@ -2,6 +2,7 @@
 name = "smitters"
 version = "0.1.0"
 edition = "2021"
+repository = "https://github.com/enomado/smitters"
 
 description = "Smith chart, Volpert–Smith chart, egui"
 license = "MIT"
