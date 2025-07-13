@@ -28,12 +28,11 @@ impl<'a> Context<'a> {
 
         let painter = ui.painter();
 
-        let ctx = Context {
+        Context {
             painter,
             half_width,
             center_of_image,
-        };
-        ctx
+        }
     }
 
     pub fn center(&self) -> Pos2 {
@@ -52,7 +51,7 @@ impl<'a> Context<'a> {
             ResReactive(react_end),
         );
 
-        egui_draw_arc(&self.painter, arc, stroke);
+        egui_draw_arc(self.painter, arc, stroke);
     }
 
     pub fn react(&self, react: f64, res_start: f64, res_end: f64, stroke: &Stroke) {
@@ -64,11 +63,11 @@ impl<'a> Context<'a> {
             ResActive(res_end),
         );
 
-        egui_draw_arc(&self.painter, arc, stroke)
+        egui_draw_arc(self.painter, arc, stroke)
     }
 
     pub fn draw_patch(&self, ending: f64, starting: f64, steps: usize, steps_m: usize) {
-        draw_patch(&self, ending, starting, steps, steps_m);
+        draw_patch(self, ending, starting, steps, steps_m);
     }
 
     pub fn horizontal_line(&self) {
@@ -86,6 +85,6 @@ impl<'a> Context<'a> {
                 width: 0.5,
                 color: Color32::RED,
             },
-        )
+        );
     }
 }

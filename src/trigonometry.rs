@@ -1,6 +1,5 @@
-use crate::math::{Angle, Circle};
-
 /// mostly by this https://lucidar.me/en/mathematics/how-to-calculate-the-intersection-points-of-two-circles/
+use crate::math::{Angle, Circle};
 
 pub fn find_chord(c1: Circle, c2: Circle) -> f64 {
     let Circle {
@@ -17,8 +16,7 @@ pub fn find_chord(c1: Circle, c2: Circle) -> f64 {
 
     let a = (r1 * r1 - r2 * r2 + d * d) / (2. * d);
 
-    let h = (r1 * r1 - a * a).sqrt();
-    h
+    (r1 * r1 - a * a).sqrt()
 }
 
 pub fn chorde_angle(c: f64, r: f64) -> Angle {

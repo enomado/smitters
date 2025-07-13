@@ -13,8 +13,8 @@ pub fn egui_draw_arc(painter: &egui::Painter, arc: CircleArc, stroke: &Stroke) {
     let Circle { center, radius } = circle;
 
     let center = kurbo::Point {
-        x: center.x as f64,
-        y: center.y as f64,
+        x: center.x,
+        y: center.y,
     };
 
     let start = center
@@ -24,7 +24,7 @@ pub fn egui_draw_arc(painter: &egui::Painter, arc: CircleArc, stroke: &Stroke) {
         };
 
     let p = kurbo::Arc {
-        center: center,
+        center,
         radii: kurbo::Vec2 {
             x: radius,
             y: radius,
@@ -52,7 +52,7 @@ pub fn egui_draw_arc(painter: &egui::Painter, arc: CircleArc, stroke: &Stroke) {
             closed: false,
             fill: Color32::TRANSPARENT,
 
-            stroke: *stroke,
+            stroke: (*stroke).into(),
         }));
 
         p_start = p3;
