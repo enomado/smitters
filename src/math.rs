@@ -107,9 +107,7 @@ pub fn xy_to_resistance(xy: &Pos2) -> (ResActive, ResReactive) {
         let x = x.abs();
         let b = b.abs();
 
-        let r = ((-b * x * (b * x - 2.)).sqrt() - b) / b;
-
-        r
+        ((-b * x * (b * x - 2.)).sqrt() - b) / b
     };
 
     (ResActive(r), ResReactive(x))
