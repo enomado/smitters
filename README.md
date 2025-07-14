@@ -2,6 +2,10 @@
 
 Have UI-agnostic API, but also works with [egui](https://github.com/emilk/egui).
 
+## Web demo
+
+[https://n4n5.dev/smitters/](https://n4n5.dev/smitters/) thanks to [@Its-Just-Nans](https://www.github.com/Its-Just-Nans)
+
 ## Examples
 
 ```sh
