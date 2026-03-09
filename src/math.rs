@@ -1,6 +1,3 @@
-// https://github.com/germi/vue-smith-chart/blob/master/src/components/sm-point.vue#L25
-// https://www.allaboutcircuits.com/technical-articles/mathematical-construction-and-properties-of-the-smith-chart/
-
 use std::ops::Add;
 
 #[derive(Debug, Clone, Copy)]
@@ -36,7 +33,6 @@ pub struct Circle {
 pub struct Angle(pub f64);
 
 pub fn resistance_to_xy(res: ResActive, react: ResReactive, radius: f64) -> Pos2 {
-    // Currentry we are drawing over circles and arcs, but it could be much faster to iterate over this
     let cx = {
         let r = res.0;
         let x = react.0;
@@ -90,24 +86,15 @@ pub fn react_circle(react: ResReactive, radius: f64) -> Circle {
 }
 
 pub fn xy_to_resistance(xy: &Pos2) -> (ResActive, ResReactive) {
-    // perhaps
-    // x: [-1:1]
-    // y: [-1:1]
-
     let b = xy.y;
     let a = xy.x;
 
-    // solve (a-1)^2 + (b-1/x)^2 = (1/x)^2 for x
-
-    // b!=0;
-    let x = (2. * b) / (a.powi(2) - 2. * a + b.powi(2) + 1.);
+    let x = (2.0 * b) / (a.powi(2) - 2.0 * a + b.powi(2) + 1.0);
 
     let r = {
-        // for some reason
         let x = x.abs();
         let b = b.abs();
-
-        ((-b * x * (b * x - 2.)).sqrt() - b) / b
+        ((-b * x * (b * x - 2.0)).sqrt() - b) / b
     };
 
     (ResActive(r), ResReactive(x))

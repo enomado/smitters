@@ -1,7 +1,6 @@
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use eframe::egui;
-
 use egui::{Color32, Stroke};
 use smitters::{
     chart_fancy::draw_smith_fancy,
@@ -11,56 +10,47 @@ use smitters::{
 
 #[cfg(not(target_arch = "wasm32"))]
 fn main() -> Result<(), eframe::Error> {
-    env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
+    env_logger::init();
     let options = eframe::NativeOptions {
-        // initial_window_size: Some(egui::vec2(320.0, 240.0)),
+        viewport: egui::ViewportBuilder::default().with_inner_size([600.0, 600.0]),
         ..Default::default()
     };
     eframe::run_native(
-        "Smith graph XY -> RX",
+        "smitters — XY → R+jX",
         options,
         Box::new(|_cc| Ok(Box::<MyApp>::default())),
     )
 }
 
 #[derive(Default)]
-struct MyApp {}
+struct MyApp;
 
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             let ctx = Context::get_context(ui);
-
             draw_smith_fancy(&ctx);
 
-            let p = ui.input(|x| x.pointer.hover_pos());
+            let hover = ui.input(|x| x.pointer.hover_pos());
 
-            if let Some(point) = p {
-                // idk
-
+            if let Some(point) = hover {
                 let p = Pos2 {
                     x: -((ctx.center().x - point.x as f64) / ctx.half_width),
                     y: -(ctx.center().y - point.y as f64) / ctx.half_width,
                 };
 
-                let r = xy_to_resistance(&p);
-
-                let react = r.1;
-                let res = r.0;
+                let (res, react) = xy_to_resistance(&p);
 
                 let stroke = Stroke {
-                    width: 1.,
+                    width: 1.0,
                     color: Color32::GREEN,
                 };
 
-                ctx.react(react.0, 0.0, 1000., &stroke);
+                ctx.react(react.0, 0.0, 1000.0, &stroke);
+                ctx.res(res.0, -1000.0, 1000.0, &stroke);
 
-                ctx.res(res.0, -1000.0, 1000., &stroke);
-
-                ui.label(format!("px {:?}", &p.x));
-                ui.label(format!("py {:?}", &p.y));
-                ui.label(format!("r {:?}", &r.0));
-                ui.label(format!("x {:?}", &r.1));
+                ui.label(format!("R = {:.3}", res.0));
+                ui.label(format!("X = {:.3}", react.0));
             }
         });
     }

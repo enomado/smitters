@@ -1,6 +1,8 @@
-/// mostly by this https://lucidar.me/en/mathematics/how-to-calculate-the-intersection-points-of-two-circles/
+/// Circle intersection math.
+/// Reference: https://lucidar.me/en/mathematics/how-to-calculate-the-intersection-points-of-two-circles/
 use crate::math::{Angle, Circle};
 
+/// Find chord half-length between two intersecting circles.
 pub fn find_chord(c1: Circle, c2: Circle) -> f64 {
     let Circle {
         center: p1,
@@ -20,8 +22,8 @@ pub fn find_chord(c1: Circle, c2: Circle) -> f64 {
 }
 
 pub fn chorde_angle(c: f64, r: f64) -> Angle {
-    let lenght = 2. * (c / r).asin();
-    Angle(lenght)
+    let length = 2. * (c / r).asin();
+    Angle(length)
 }
 
 pub fn intersect_angle_react_by_res(react: Circle, res: Circle) -> Angle {
@@ -33,7 +35,6 @@ pub fn intersect_angle_react_by_res(react: Circle, res: Circle) -> Angle {
     chorde_angle(c, r)
 }
 
-// fixed
 pub fn intersect_angle_res_by_react(res: Circle, react: Circle) -> Angle {
     let h = find_chord(res, react);
 
